@@ -20,10 +20,22 @@ namespace csharp_web_dev_lsn9exceptions
             return quotient;
         }
 
-        //static int CheckFileExtension(string fileName)
-        //{
-        //    // Write your code here!
-        //}
+        static int CheckFileExtension(string fileName)
+        {
+            if (fileName.Equals("") || fileName.Equals(null))
+            {
+                throw new FormatException("Filename is empty.");
+            }
+            else if (fileName.EndsWith(".cs"))
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+
+        }
 
 
         static void Main(string[] args)
@@ -33,9 +45,9 @@ namespace csharp_web_dev_lsn9exceptions
             {
                 Console.WriteLine(Divide(34, 0));
             }
-            catch(ArgumentOutOfRangeException)
+            catch(ArgumentOutOfRangeException e)
             {
-                Console.WriteLine("You can't divide by zero.");
+                Console.WriteLine(e.Message);
             }
 
             // Test out your CheckFileExtension() function here!
@@ -45,6 +57,17 @@ namespace csharp_web_dev_lsn9exceptions
             students.Add("Elizabeth", "MyCode.cs");
             students.Add("Stefanie", "CoolProgram.cs");
 
+            foreach (KeyValuePair<string, string> student in students)
+            {
+                try
+                {
+                    Console.WriteLine(CheckFileExtension(student.Value));
+                }
+                catch(FormatException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
 
         }
     }
